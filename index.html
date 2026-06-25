@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GameDayInMyCity — Every Game. Every City. Every Fan.</title>
+<meta name="description" content="Your city's complete game day hub. Youth sports to the pros — live streaming, gaming, gear, tickets, and Coach, your AI game day companion." />
+
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&family=Caveat:wght@600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<!-- Ambient broadcast-studio backdrop: faint grid + slow drifting stadium light -->
+<div class="studio-fx" aria-hidden="true">
+  <div class="sfx-grid"></div>
+  <span class="sfx-glow g1"></span>
+  <span class="sfx-glow g2"></span>
+  <span class="sfx-glow g3"></span>
+  <div class="sfx-vignette"></div>
+</div>
+
+<!-- ===================== TOP BAR ===================== -->
+<div class="topbar">
+  <div class="ticker" aria-hidden="true"><div class="track" id="ticker"></div></div>
+  <nav class="nav">
+    <div class="wrap nav-in">
+      <a href="#top" class="logo" aria-label="GameDayInMyCity home">
+        <img src="assets/logo.png" alt="Game Day In My City">
+      </a>
+      <div class="nav-links">
+        <a href="#live">GameDay Live</a>
+        <a href="#hub">Sports</a>
+        <a href="#explore">Betting</a>
+        <a href="#gaming">Gaming</a>
+        <a href="#shop">Shop</a>
+        <a href="#states">States</a><a href="#cities">Cities</a>
+        <a href="#coach">Coach</a>
+      </div>
+      <div class="nav-cta">
+        <button class="icon-btn ghostnav" aria-label="Search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></button>
+        <a href="#coach" class="btn btn-primary">Chat with Coach</a>
+        <button class="icon-btn burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="#live">GameDay Live</a><a href="#hub">Sports</a><a href="#explore">Betting</a>
+      <a href="#gaming">Gaming</a><a href="#shop">Shop</a><a href="#states">States</a><a href="#cities">Cities</a><a href="#coach">Coach</a>
+    </div>
+  </nav>
+</div>
+<a id="top"></a>
+
+<!-- ===================== HERO ===================== -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Local-first · 1,200+ cities</span>
+      <h1>Every Game.<br><span class="g">Every City.</span><br><span class="out">Every Fan.</span></h1>
+      <p class="lead">From Little League to the big leagues — live streaming, scores, gear, tickets, gaming, and your whole city's game day in one place.</p>
+
+      <form class="search" id="hero-search" autocomplete="off" onsubmit="return false;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="searchInput" type="text" aria-label="Search GameDayInMyCity" placeholder="Find teams, leagues, games, facilities, tickets, gear…">
+        <button class="btn btn-primary" type="submit">Search</button>
+      </form>
+
+      <div class="hero-cta">
+        <a href="#cities" class="btn btn-amber">Find My City</a>
+        <a href="#live" class="btn btn-outline"><span class="play">▶</span> Watch Live Games</a>
+        <a href="#shop" class="btn btn-ghost">Explore Gear</a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="s"><b class="c" data-count="48213">0</b><span>Live games today</span></div>
+        <div class="s"><b class="a" data-count="92000">0</b><span>Local teams</span></div>
+        <div class="s"><b class="m" data-count="1240">0</b><span>Cities covered</span></div>
+      </div>
+    </div>
+
+    <div class="deck">
+      <article class="card score-card sweep" aria-label="Live game">
+        <div class="row"><span class="lg" id="leagueLabel">HS Football · Q3</span><span class="badge live"><span class="dot"></span> LIVE</span></div>
+        <div class="team"><span class="crest" style="background:var(--gold-grad)">N</span><span class="nm" id="awayName">Northside</span><span class="sc" id="awayScore">21</span></div>
+        <div class="team"><span class="crest" style="background:#23242b;color:#fff">W</span><span class="nm" id="homeName">Westgate</span><span class="sc" id="homeScore">17</span></div>
+      </article>
+      <div class="mini-cards">
+        <div class="card mini"><div class="k">Best odds · ML</div><div class="v green" id="oddsVal">-135</div><div class="sub">Eagles vs Cowboys</div></div>
+        <div class="card mini"><div class="k">Esports finals</div><div class="v mag">LIVE</div><div class="sub">City Cup · Map 3</div></div>
+        <div class="card mini"><div class="k">Gear deal</div><div class="v amber">-40%</div><div class="sub">Pro batting gloves</div></div>
+        <div class="card mini"><div class="k">Coach's Pick · kickoff in</div><div class="v" id="kickoffCount" style="color:var(--blue);font-variant-numeric:tabular-nums">2:14:09</div><div class="sub">Eagles vs Cowboys · tonight</div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== GAMEDAY LIVE ===================== -->
+<section class="section" id="live">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow">GameDay Live</span>
+        <h2 class="h-sec">Stream every<br><span class="g">local game</span> in HD</h2>
+        <p class="lead">The streaming home for youth and local sports — pro-grade broadcast tools without the pro-grade hassle. Family-safe, recruiter-ready.</p>
+      </div>
+      <a href="#" class="btn btn-primary">Start a stream</a>
+    </div>
+
+    <div class="live-grid reveal">
+      <article class="card player">
+        <div class="panel pn-stadium screen sweep">
+          <div class="ovl-top">
+            <div class="scorebug"><span class="t away">NOR 21</span><span class="clk" id="bugClock">07:42 Q3</span><span class="t home">WES 17</span></div>
+            <span class="viewers"><span id="viewerCount">1,284</span> watching</span>
+          </div>
+          <button class="play-big" aria-label="Play stream"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+        </div>
+        <div class="meta">
+          <span class="badge live"><span class="dot"></span> LIVE</span>
+          <span class="badge pick">★ Coach's Pick</span>
+          <div><div class="ttl">Northside vs Westgate — Varsity Football</div><div class="sub">Lincoln Field · Philadelphia, PA · AI highlights on</div></div>
+        </div>
+      </article>
+      <div class="live-feats">
+        <div class="card feat"><span class="ic">📡</span><div><h4>HD Live Streaming</h4><p>Multi-cam 1080p from a phone or fixed rig.</p></div></div>
+        <div class="card feat"><span class="ic">🔢</span><div><h4>Live Scoreboard</h4><p>Score, clock and situation sync in real time.</p></div></div>
+        <div class="card feat"><span class="ic">📊</span><div><h4>Player Stats</h4><p>Box scores and season tracking, auto-built.</p></div></div>
+        <div class="card feat"><span class="ic">✨</span><div><h4>AI Highlights</h4><p>Big plays clipped and captioned instantly.</p></div></div>
+        <div class="card feat"><span class="ic">⏮</span><div><h4>Instant Replay</h4><p>Scrub back without leaving the live feed.</p></div></div>
+        <div class="card feat"><span class="ic">🏟</span><div><h4>Team Pages</h4><p>Roster, schedule, archive and stats in one hub.</p></div></div>
+        <div class="card feat"><span class="ic">🔒</span><div><h4>Invite-Only Streams</h4><p>Private, family-only broadcasts when you want.</p></div></div>
+        <div class="card feat"><span class="ic">💬</span><div><h4>Family-Safe Chat</h4><p>Moderated by default. Sponsor overlays built in.</p></div></div>
+        <div class="card feat"><span class="ic">🎯</span><div><h4>Recruiting Clips</h4><p>One-tap reels coaches and scouts can open.</p></div></div>
+        <div class="card feat"><span class="ic">📣</span><div><h4>Sponsor Overlays</h4><p>Give local sponsors airtime, fund the team.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LOCAL SPORTS HUB ===================== -->
+<section class="section alt" id="hub">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow">Local Sports Hub</span>
+        <h2 class="h-sec">From the sandlot<br>to the <span class="g">stadium</span></h2>
+        <p class="lead">Every level of the game in your city, organized and searchable. Pick your level and dive in.</p>
+      </div>
+    </div>
+    <div class="hub-grid reveal">
+      <article class="card hub-card panel pn-court"><span class="badge chip">Ages 4–12</span><div class="lvl">// Youth</div><h3>Little League</h3><div class="meta">2,140 teams · 86 leagues near you</div></article>
+      <article class="card hub-card panel pn-stadium"><span class="badge chip">Elite</span><div class="lvl">// Club</div><h3>Travel Sports</h3><div class="meta">Tournaments, rankings &amp; travel planning</div></article>
+      <article class="card hub-card panel pn-arena"><span class="badge chip">Recruiting</span><div class="lvl">// Prep</div><h3>High School</h3><div class="meta">Varsity streams, stats &amp; scout clips</div></article>
+      <article class="card hub-card light panel pn-field"><span class="badge chip">D1–D3</span><div class="lvl">// NCAA</div><h3>College</h3><div class="meta">Schedules, scores &amp; watch parties</div></article>
+      <article class="card hub-card panel pn-stadium"><span class="badge chip">Rising</span><div class="lvl">// Minor</div><h3>Semi-Pro</h3><div class="meta">Local heroes, real rivalries</div></article>
+      <article class="card hub-card panel pn-court"><span class="badge chip">Pro</span><div class="lvl">// Major</div><h3>Pro Teams</h3><div class="meta">Tickets, gear &amp; game day guides</div></article>
+      <article class="card hub-card panel pn-arena"><span class="badge chip">Global</span><div class="lvl">// Games</div><h3>Olympics</h3><div class="meta">Local qualifiers to the world stage</div></article>
+      <article class="card hub-card light panel pn-field"><span class="badge chip">All ages</span><div class="lvl">// Rec</div><h3>Adult Leagues</h3><div class="meta">Pickup, beer leagues &amp; weekend ball</div></article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TABBED EXPLORER ===================== -->
+<section class="section" id="explore">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><span class="eyebrow">One platform · four worlds</span><h2 class="h-sec">Explore the<br>whole <span class="g">game day</span></h2></div>
+    </div>
+    <div class="tabs reveal" role="tablist" aria-label="Explore">
+      <button class="tab" role="tab" aria-selected="true"  data-tab="sports">🏆 Sports</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="betting">💰 Betting + Fantasy</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="gaming">🎮 Gaming</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="gear">🛍 Gear</button>
+    </div>
+
+    <div class="tabpanel active" id="panel-sports" role="tabpanel">
+      <div class="hub-grid">
+        <article class="card hub-card panel pn-stadium"><div class="lvl">// Tonight</div><h3>Live Scores</h3><div class="meta">48,213 games tracked in real time</div></article>
+        <article class="card hub-card panel pn-court"><div class="lvl">// Find</div><h3>Facilities</h3><div class="meta">Fields, courts, rinks &amp; cages near you</div></article>
+        <article class="card hub-card light panel pn-field"><div class="lvl">// Plan</div><h3>Tournament Travel</h3><div class="meta">Brackets, hotels &amp; routes in one trip</div></article>
+        <article class="card hub-card panel pn-arena"><div class="lvl">// Get in</div><h3>Tickets</h3><div class="meta">Compare seats across every box office</div></article>
+      </div>
+    </div>
+
+    <div class="tabpanel" id="panel-betting" role="tabpanel">
+      <div class="bet-grid">
+        <article class="card odds">
+          <h3>📈 Sportsbook comparison <span class="badge">Where legal · NJ</span></h3>
+          <div class="odds-row"><span class="book">Eagles ML</span><span class="o best">-135</span><span class="o">-130</span><span class="o">-142</span></div>
+          <div class="odds-row"><span class="book">Cowboys ML</span><span class="o">+118</span><span class="o best">+124</span><span class="o">+115</span></div>
+          <div class="odds-row"><span class="book">Total O/U 47.5</span><span class="o">-110</span><span class="o">-110</span><span class="o best">-105</span></div>
+          <div class="odds-row"><span class="book">A. Brown 75+ yds</span><span class="o best">+140</span><span class="o">+135</span><span class="o">+150</span></div>
+          <p class="lead" style="margin-top:14px; font-size:13px;">We surface the best available line — and explain what the numbers mean before you ever place a bet.</p>
+        </article>
+        <div class="bet-side">
+          <div class="card fantasy">
+            <h4>🏈 Fantasy &amp; DFS</h4>
+            <ul>
+              <li>Season-long fantasy football leagues</li>
+              <li>Daily fantasy (DFS) lineups &amp; contests</li>
+              <li>Prop bet builder with live pricing</li>
+              <li>Odds 101: moneylines, spreads &amp; EV explained</li>
+            </ul>
+          </div>
+          <div class="responsible">
+            <span class="ic">⚠️</span>
+            <p><b>Play responsibly.</b> Betting features appear only where legal and for 21+. Set limits, never chase losses. Call <b>1-800-GAMBLER</b> for confidential help, any time.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tabpanel" id="panel-gaming" role="tabpanel">
+      <div class="hub-grid">
+        <article class="card hub-card panel pn-arena"><div class="lvl">// Compete</div><h3>Esports</h3><div class="meta">City Cups, ladders &amp; LAN finals</div></article>
+        <article class="card hub-card panel pn-stadium"><div class="lvl">// Stream</div><h3>Go Live</h3><div class="meta">Stream setups &amp; overlays that pop</div></article>
+        <article class="card hub-card panel pn-court"><div class="lvl">// Gear up</div><h3>Gaming Gear</h3><div class="meta">Controllers, headsets &amp; rigs</div></article>
+        <article class="card hub-card light panel pn-field"><div class="lvl">// Squad</div><h3>Find Players</h3><div class="meta">Local LFG &amp; community nights</div></article>
+      </div>
+    </div>
+
+    <div class="tabpanel" id="panel-gear" role="tabpanel">
+      <div class="hub-grid">
+        <article class="card hub-card panel pn-court"><div class="lvl">// Wear</div><h3>Jerseys</h3><div class="meta">Authentic &amp; custom team kits</div></article>
+        <article class="card hub-card light panel pn-field"><div class="lvl">// Play</div><h3>Equipment</h3><div class="meta">Gloves, bats, cleats &amp; pads</div></article>
+        <article class="card hub-card panel pn-arena"><div class="lvl">// Collect</div><h3>Trading Cards</h3><div class="meta">Rookies, hits &amp; graded slabs</div></article>
+        <article class="card hub-card panel pn-stadium"><div class="lvl">// Tailgate</div><h3>Game Day Food</h3><div class="meta">Grills, coolers &amp; tailgating kits</div></article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== GAMING + ESPORTS ===================== -->
+<section class="section alt" id="gaming">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><span class="eyebrow">Gaming + Esports</span><h2 class="h-sec">The other<br><span class="g">game day</span></h2>
+      <p class="lead">Console, PC, mobile and VR — plus the local esports scene, streaming setups and gear to win on.</p></div>
+    </div>
+    <div class="game-strip reveal">
+      <div class="card plat"><div class="ic">🟢</div><div class="nm">Xbox</div></div>
+      <div class="card plat"><div class="ic">🔵</div><div class="nm">PlayStation</div></div>
+      <div class="card plat"><div class="ic">💻</div><div class="nm">PC Gaming</div></div>
+      <div class="card plat"><div class="ic">🔴</div><div class="nm">Nintendo</div></div>
+      <div class="card plat"><div class="ic">📱</div><div class="nm">Mobile</div></div>
+      <div class="card plat"><div class="ic">🥽</div><div class="nm">VR</div></div>
+      <div class="card plat"><div class="ic">🎧</div><div class="nm">Setups</div></div>
+    </div>
+    <div class="esports reveal">
+      <article class="card tourney">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
+          <h3 style="font-family:var(--ui); font-weight:800; font-size:16px; text-transform:none; color:var(--ink);">City Cup — Grand Finals</h3>
+          <span class="badge live"><span class="dot"></span> LIVE · Map 3</span>
+        </div>
+        <div style="display:grid; gap:10px; margin-top:14px;">
+          <div class="match"><span class="w">Philly Phantoms</span><span class="vs">VS</span><span>Jersey Jolt</span></div>
+          <div class="match"><span>Boston Bytes</span><span class="vs">VS</span><span class="w">NY Nightfall</span></div>
+          <div class="match"><span class="w">Philly Phantoms</span><span class="vs">FINAL · Bo5</span><span>NY Nightfall</span></div>
+        </div>
+        <p class="lead" style="margin-top:14px; font-size:13px;">Local brackets, online qualifiers and LAN finals — your city's esports league lives here.</p>
+      </article>
+      <div class="bet-side">
+        <div class="card feat"><span class="ic">🏆</span><div><h4>Esports Tournaments</h4><p>Run or join brackets across every title.</p></div></div>
+        <div class="card feat"><span class="ic">🎥</span><div><h4>Streaming Setups</h4><p>Overlays, scenes &amp; gear guides to go live.</p></div></div>
+        <div class="card feat"><span class="ic">⌨️</span><div><h4>Gaming Gear</h4><p>Tested loadouts for every budget.</p></div></div>
+        <div class="card feat"><span class="ic">🥽</span><div><h4>VR Arenas</h4><p>Find local VR &amp; mixed-reality spots.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SHOP ===================== -->
+<section class="section" id="shop">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><span class="eyebrow">Shop Game Day</span><h2 class="h-sec">Gear up for<br><span class="g">everything</span></h2>
+      <p class="lead">Jerseys, sneakers, equipment, trading cards, tailgating gear and gaming accessories — all in one place. We compare prices across stores and show you the best one.</p></div>
+    </div>
+    <div class="shop-grid reveal">
+      <article class="card product"><span class="badge aff">Affiliate</span><div class="panel pn-court pic sweep"></div><div class="body"><div class="cat">Jerseys</div><h4>Pro Authentic Home Kit</h4><div class="pr"><span class="now">$119</span><span class="was">$149</span></div></div></article>
+      <article class="card product"><span class="badge aff">Affiliate</span><div class="panel pn-stadium pic sweep"></div><div class="body"><div class="cat">Sneakers</div><h4>Court Flyknit Mids</h4><div class="pr"><span class="now">$94</span><span class="was">$140</span></div></div></article>
+      <article class="card product"><span class="badge aff">Affiliate</span><span class="badge pick pick-tr">★ Coach's Pick</span><div class="panel pn-field pic sweep"></div><div class="body"><div class="cat">Equipment</div><h4>11.5" Infield Glove</h4><div class="pr"><span class="now">$179</span><span class="was">$220</span></div></div></article>
+      <article class="card product"><span class="badge aff">Affiliate</span><div class="panel pn-arena pic sweep"></div><div class="body"><div class="cat">Trading Cards</div><h4>Rookie Hobby Box</h4><div class="pr"><span class="now">$249</span><span class="was">$299</span></div></div></article>
+      <article class="card product"><span class="badge aff">Affiliate</span><div class="panel pn-stadium pic sweep"></div><div class="body"><div class="cat">Memorabilia</div><h4>Signed Game Ball</h4><div class="pr"><span class="now">$399</span></div></div></article>
+      <article class="card product"><span class="badge aff">Affiliate</span><div class="panel pn-court pic sweep"></div><div class="body"><div class="cat">Tailgating</div><h4>Portable Game Day Grill</h4><div class="pr"><span class="now">$129</span><span class="was">$169</span></div></div></article>
+      <article class="card product"><span class="badge aff">Affiliate</span><div class="panel pn-field pic sweep"></div><div class="body"><div class="cat">Protein / Recovery</div><h4>Recovery Stack Bundle</h4><div class="pr"><span class="now">$54</span><span class="was">$72</span></div></div></article>
+      <article class="card product"><span class="badge aff">Affiliate</span><div class="panel pn-arena pic sweep"></div><div class="body"><div class="cat">Gaming Accessories</div><h4>Pro Wireless Headset</h4><div class="pr"><span class="now">$89</span><span class="was">$129</span></div></div></article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== COACH (mockup-matched) ===================== -->
+<section class="section coach-hero alt" id="coach">
+  <div class="wrap">
+    <div class="reveal">
+      <h2>Coach</h2>
+      <div class="gold-rule"><span class="ln"></span><span class="star">★</span><span class="ln"></span></div>
+      <div class="coach-companion">Your <span class="ai">AI</span> Game Day Companion</div>
+      <p class="coach-quote">I'm here to get you<br>through each play-by-play.<span class="uline"></span></p>
+      <div class="coach-feats">
+        <div class="coach-feat"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="6" y="3" width="12" height="18" rx="2"/><circle cx="9" cy="9" r="1.4"/><circle cx="15" cy="14" r="1.4"/><path d="M10 10l4 3"/></svg></span><span class="lab">Game Plans</span></div>
+        <div class="coach-feat"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 19V11M12 19V5M19 19v-6"/></svg></span><span class="lab">Stats &amp; Insights</span></div>
+        <div class="coach-feat"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3z"/></svg></span><span class="lab">Highlights</span></div>
+        <div class="coach-feat"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/><circle cx="17" cy="9" r="2.4"/><path d="M16 20a5 5 0 0 1 5-5"/></svg></span><span class="lab">Team Support</span></div>
+      </div>
+      <div class="coach-cta">
+        <a href="#coach-chat" class="btn btn-primary"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16v12H8l-4 4z"/></svg> Chat with Coach</a>
+        <a href="#live" class="btn btn-outline"><span class="play">▶</span> See How It Works</a>
+      </div>
+    </div>
+    <div class="coach-portrait reveal">
+      <div class="skyline"></div>
+      <img src="assets/coach.jpg" alt="Coach — your AI game day companion">
+    </div>
+  </div>
+
+  <div class="wrap" style="margin-top:clamp(48px,6vw,80px);">
+    <div class="section-head reveal" style="margin-bottom:24px;">
+      <div><span class="eyebrow">Built to help you win</span><h2 class="h-sec" style="font-size:clamp(30px,4.6vw,46px);">Smarter every <span class="g">game day</span></h2></div>
+    </div>
+    <div class="win-grid reveal">
+      <div class="card win-card"><div class="ic"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 3a3 3 0 0 0-3 3 3 3 0 0 0-1 5 3 3 0 0 0 1 5 3 3 0 0 0 3 3 2.5 2.5 0 0 0 3-2V5a2 2 0 0 0-3-2zM15 3a3 3 0 0 1 3 3 3 3 0 0 1 1 5 3 3 0 0 1-1 5 3 3 0 0 1-3 3 2.5 2.5 0 0 1-3-2"/></svg></div><h4>AI-Powered Guidance</h4><p>Smart insights and strategies tailored to your game.</p></div>
+      <div class="card win-card"><div class="ic"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="6" r="2.4"/><circle cx="18" cy="6" r="2.4"/><circle cx="6" cy="18" r="2.4"/><circle cx="18" cy="18" r="2.4"/><path d="M8 8l8 8M16 8l-8 8"/></svg></div><h4>Personalized Game Plans</h4><p>Custom plans built for your team, your goals.</p></div>
+      <div class="card win-card"><div class="ic"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 20V12M12 20V6M19 20v-5"/></svg></div><h4>Real-Time Adaptation</h4><p>Adjust on the fly with live data and game flow.</p></div>
+      <div class="card win-card"><div class="ic"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 4h10v4a5 5 0 0 1-10 0zM7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3M9 18h6M8 21h8M12 13v5"/></svg></div><h4>Focused on Results</h4><p>Prepare. Focus. Execute. Win.</p></div>
+    </div>
+  </div>
+
+  <div class="wrap" id="coach-chat" style="margin-top:clamp(48px,6vw,80px);">
+    <div class="coach-chat">
+      <div class="reveal">
+        <span class="eyebrow">Try Coach</span>
+        <h2 class="h-sec" style="font-size:clamp(28px,4.4vw,44px);">Ask anything,<br>get an answer</h2>
+        <p class="lead" style="margin:14px 0 20px;">Coach knows your city and your kid's schedule. Tap a prompt to try it.</p>
+        <div class="prompts" id="prompts">
+          <button class="prompt" data-q="Find 12U baseball tournaments near me">Find 12U baseball tournaments near me</button>
+          <button class="prompt" data-q="Best glove for a 10-year-old shortstop">Best glove for a 10-year-old shortstop</button>
+          <button class="prompt" data-q="Where can I livestream tonight's game?">Where can I livestream tonight's game?</button>
+          <button class="prompt" data-q="Create a highlight reel from last weekend">Create a highlight reel from last weekend</button>
+          <button class="prompt" data-q="Find Eagles tickets under $150">Find Eagles tickets under $150</button>
+        </div>
+      </div>
+      <div class="card chatbox reveal">
+        <div class="chat-head">
+          <div class="av">C</div>
+          <div><div class="nm">Coach</div><div class="st"><span class="d"></span> Online · knows Philadelphia, PA</div></div>
+        </div>
+        <div class="chat-body" id="chatBody">
+          <div class="msg bot">Hey! I'm Coach 👋 Ask me about games, gear, tickets or highlights in your city — or tap a suggestion.</div>
+        </div>
+        <form class="chat-input" id="chatForm" onsubmit="return false;">
+          <input id="chatInput" type="text" placeholder="Ask Coach anything…" aria-label="Ask Coach">
+          <button type="submit" aria-label="Send"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg></button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TOP STATES ===================== -->
+<section class="section" id="states">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow">Top States · In Depth</span>
+        <h2 class="h-sec">Where the <span class="g">country</span><br>plays</h2>
+        <p class="lead">The top 10 sports states, broken down by level — youth to pro, college, betting where legal, and the gaming scene. Tap a state to go deep. More states roll out soon.</p>
+      </div>
+    </div>
+    <div class="states-wrap reveal">
+      <div class="state-rail" id="stateRail" role="tablist" aria-label="Top states"></div>
+      <div class="state-detail card" id="stateDetail"></div>
+    </div>
+    <p class="states-note">Betting availability reflects public reporting for 2026 and can change — always verify locally. 21+. If gambling stops being fun, call 1-800-GAMBLER.</p>
+  </div>
+</section>
+
+<!-- ===================== CITY PAGES ===================== -->
+<section class="section" id="cities">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><span class="eyebrow">City Pages</span><h2 class="h-sec">Your city has<br>a <span class="g">home</span> here</h2>
+      <p class="lead">Every city is its own world — teams, leagues, facilities, live events, tickets and gear, all in one local hub.</p></div>
+      <a href="#hero-search" class="btn btn-primary">Find My City</a>
+    </div>
+    <div class="city-grid reveal" id="cityGrid"></div>
+  </div>
+</section>
+
+<!-- ===================== PARTNERS ===================== -->
+<section class="section alt" id="partners">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><span class="eyebrow">Partner Ecosystem</span><h2 class="h-sec">Built for<br>partners &amp; <span class="g">sponsors</span></h2>
+      <p class="lead">One platform connecting fans to the brands and businesses that power game day — measurable, local, and trusted.</p></div>
+    </div>
+    <div class="partner-grid reveal">
+      <div class="card partner"><span class="ic">🎟</span><div><h4>Ticket Affiliates</h4><p>Drive verified seat sales across every venue.</p></div></div>
+      <div class="card partner"><span class="ic">🏟</span><div><h4>Sporting Goods</h4><p>Reach buyers at the moment of need.</p></div></div>
+      <div class="card partner"><span class="ic">👕</span><div><h4>Sports Apparel</h4><p>Kits, sneakers and fan gear, shoppable.</p></div></div>
+      <div class="card partner"><span class="ic">🏨</span><div><h4>Hotels &amp; Travel</h4><p>Capture tournament-travel families.</p></div></div>
+      <div class="card partner"><span class="ic">🥤</span><div><h4>Sports Nutrition</h4><p>Fuel, protein and recovery brands.</p></div></div>
+      <div class="card partner"><span class="ic">📺</span><div><h4>Streaming Services</h4><p>Distribute and co-stream local events.</p></div></div>
+      <div class="card partner"><span class="ic">🎮</span><div><h4>Gaming Gear</h4><p>Reach players, streamers and esports fans.</p></div></div>
+      <div class="card partner"><span class="ic">💰</span><div><h4>Sportsbooks</h4><p>Compliant placement — where legal only.</p></div></div>
+      <div class="card partner"><span class="ic">📍</span><div><h4>Local Sponsors</h4><p>Put your business on the home team's stream.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CTA BAND ===================== -->
+<section class="section" style="padding-top:0;">
+  <div class="wrap">
+    <div class="band reveal">
+      <span class="eyebrow">Your city's complete game day hub</span>
+      <h2>Game day,<br><span class="g">everywhere you are</span></h2>
+      <p class="lead">Join the fans, families, players and teams already living game day on GameDayInMyCity.</p>
+      <div class="row">
+        <a href="#hero-search" class="btn btn-primary">Find My City</a>
+        <a href="#live" class="btn btn-outline" style="background:transparent;color:#fff;border-color:#fff;"><span class="play">▶</span> Watch Live Games</a>
+        <a href="#partners" class="btn btn-ghost" style="color:#fff;border-color:rgba(255,255,255,.3);">Become a Partner</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="foot-word">game day <em>in my city</em></div>
+        <p>Every Game. Every City. Every Fan. The local-first home for game day — youth to pro, sports to gaming.</p>
+        <div class="foot-soc">
+          <a href="#" aria-label="X">𝕏</a><a href="#" aria-label="Instagram">◎</a><a href="#" aria-label="YouTube">▶</a><a href="#" aria-label="Twitch">▷</a>
+        </div>
+      </div>
+      <div class="foot-col"><h5>Explore</h5><a href="#hub">Sports</a><a href="#live">GameDay Live</a><a href="#explore">Betting</a><a href="#gaming">Gaming</a></div>
+      <div class="foot-col"><h5>Shop &amp; Go</h5><a href="#shop">Gear</a><a href="#explore">Tickets</a><a href="#states">States</a><a href="#cities">Cities</a><a href="#coach">Coach</a></div>
+      <div class="foot-col"><h5>Business</h5><a href="#live">For Teams</a><a href="#partners">For Sponsors</a><a href="#partners">Partner Ecosystem</a><a href="#">Press</a></div>
+      <div class="foot-col"><h5>Trust</h5><a href="#explore">Responsible Gaming</a><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Family Safety</a></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 GameDayInMyCity. All rights reserved.</span>
+      <span class="disclaim">Betting content shown only where legal · 21+ · If you or someone you know has a gambling problem, call 1-800-GAMBLER.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Coach, present throughout: small rotating live tip -->
+<div class="coach-fab" id="coachFab" hidden>
+  <span class="cf-av">C</span>
+  <span class="cf-body"><span class="cf-name">Coach</span><span class="cf-tip" id="cfTip">Northside is 5–0 at home this season.</span></span>
+  <button class="cf-x" id="cfX" aria-label="Dismiss Coach tip">×</button>
+</div>
+
+<script src="data/states.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
