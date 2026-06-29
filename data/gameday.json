@@ -1,0 +1,21 @@
+{
+  "_comment": "Game Day hubs that power the homepage #gamedayGrid. Each is an entity mapping to a future category/resource page. Everything around the game: getting there, getting in, making a day of it. coverage: rolling_out until real local data/partners exist.",
+  "version": 1,
+  "hubs": [
+    { "slug": "tickets",        "name": "Tickets",         "icon": "\ud83c\udf9f",  "coverage": "rolling_out", "blurb": "Compare seats across box offices \u2014 partners coming soon." },
+    { "slug": "parking",        "name": "Parking",         "icon": "\ud83c\udd7f",  "coverage": "rolling_out", "blurb": "Find and reserve parking near the venue." },
+    { "slug": "tailgating",     "name": "Tailgating",      "icon": "\ud83c\udf57",  "coverage": "rolling_out", "blurb": "Grills, coolers, spots and tailgate guides." },
+    { "slug": "restaurants",    "name": "Restaurants",     "icon": "\ud83c\udf7d",  "coverage": "rolling_out", "blurb": "Pre- and post-game eats near the field." },
+    { "slug": "sports-bars",    "name": "Sports Bars",     "icon": "\ud83c\udf7b",  "coverage": "rolling_out", "blurb": "Where to catch the game with the crowd." },
+    { "slug": "hotels",         "name": "Hotels",          "icon": "\ud83c\udfe8",  "coverage": "rolling_out", "blurb": "Stays for tournament-travel families." },
+    { "slug": "transportation", "name": "Transportation",  "icon": "\ud83d\ude8c",  "coverage": "rolling_out", "blurb": "Getting to and from the venue." },
+    { "slug": "weather",        "name": "Weather",         "icon": "\u26c5",      "coverage": "rolling_out", "blurb": "Game-time forecast for your field." },
+    { "slug": "traffic",        "name": "Traffic",         "icon": "\ud83d\udea6",  "coverage": "rolling_out", "blurb": "Routes and timing around game day." },
+    { "slug": "watch-parties",  "name": "Watch Parties",   "icon": "\ud83d\udcfa",  "coverage": "rolling_out", "blurb": "Find or host a local watch party." },
+    { "slug": "fan-experiences","name": "Fan Experiences", "icon": "\ud83c\udf89",  "coverage": "rolling_out", "blurb": "Meetups, activations and game-day fun." },
+    { "slug": "merchandise",    "name": "Merchandise",     "icon": "\ud83d\udc55",  "coverage": "rolling_out", "blurb": "Team gear and fan apparel hubs." },
+    { "slug": "travel",         "name": "Travel",          "icon": "\u2708",      "coverage": "rolling_out", "blurb": "Plan the trip around the tournament." },
+    { "slug": "photography",    "name": "Photography",     "icon": "\ud83d\udcf8",  "coverage": "rolling_out", "blurb": "Local sports photographers \u2014 partners coming." },
+    { "slug": "streaming",      "name": "Streaming",       "icon": "\ud83d\udce1",  "coverage": "coming_soon", "blurb": "GameDay Live \u2014 join the waitlist." }
+  ]
+}
