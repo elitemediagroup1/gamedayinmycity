@@ -1,0 +1,20 @@
+{
+  "_comment": "Affiliate category hubs that power the homepage #shopGrid. Each maps to a future /shop/{slug}/ buying guide. affiliateLinks is intentionally empty until REAL verified affiliate links exist \u2014 the UI renders 'Coming Soon' instead of any price. No fake prices, ever.",
+  "version": 1,
+  "categories": [
+    { "slug": "jerseys",            "name": "Jerseys & Apparel",   "icon": "\ud83d\udc55", "sport": null,       "coverage": "rolling_out", "blurb": "Authentic & custom team kits.",          "affiliateLinks": [] },
+    { "slug": "sneakers",           "name": "Sneakers & Cleats",   "icon": "\ud83d\udc5f", "sport": null,       "coverage": "rolling_out", "blurb": "Court, turf and field footwear.",       "affiliateLinks": [] },
+    { "slug": "equipment",          "name": "Equipment",           "icon": "\ud83e\udd45", "sport": null,       "coverage": "rolling_out", "blurb": "Gloves, bats, balls, sticks & pads.",    "affiliateLinks": [] },
+    { "slug": "baseball-gloves",    "name": "Baseball Gloves",     "icon": "\u26be", "sport": "baseball", "coverage": "rolling_out", "blurb": "Buying guide by age and position.",     "affiliateLinks": [] },
+    { "slug": "bats",               "name": "Bats",                "icon": "\ud83c\udfcf", "sport": "baseball", "coverage": "rolling_out", "blurb": "Drop weight, length & league rules.",   "affiliateLinks": [] },
+    { "slug": "training-equipment", "name": "Training Equipment",  "icon": "\ud83c\udfcb", "sport": null,       "coverage": "rolling_out", "blurb": "Nets, tees, cones & speed gear.",       "affiliateLinks": [] },
+    { "slug": "recovery",           "name": "Recovery",            "icon": "\ud83e\uddca", "sport": null,       "coverage": "rolling_out", "blurb": "Rollers, compression & mobility.",      "affiliateLinks": [] },
+    { "slug": "nutrition",          "name": "Nutrition",           "icon": "\ud83e\udd64", "sport": null,       "coverage": "rolling_out", "blurb": "Fuel, protein & hydration guides.",     "affiliateLinks": [] },
+    { "slug": "trading-cards",      "name": "Trading Cards",       "icon": "\ud83c\udccf", "sport": null,       "coverage": "rolling_out", "blurb": "Rookies, hits & graded slabs.",         "affiliateLinks": [] },
+    { "slug": "collectibles",       "name": "Collectibles",        "icon": "\ud83c\udfc6", "sport": null,       "coverage": "rolling_out", "blurb": "Memorabilia & signed pieces.",          "affiliateLinks": [] },
+    { "slug": "gaming-gear",        "name": "Gaming Gear",         "icon": "\ud83c\udfae", "sport": "gaming",   "coverage": "rolling_out", "blurb": "Controllers, headsets & rigs.",         "affiliateLinks": [] },
+    { "slug": "streaming-gear",     "name": "Streaming Equipment", "icon": "\ud83c\udfa5", "sport": null,       "coverage": "rolling_out", "blurb": "Cameras, mics & capture for go-live.", "affiliateLinks": [] },
+    { "slug": "tailgating",         "name": "Tailgating",          "icon": "\ud83c\udf57", "sport": null,       "coverage": "rolling_out", "blurb": "Grills, coolers & game-day kits.",      "affiliateLinks": [] },
+    { "slug": "fan-gear",           "name": "Fan Gear",            "icon": "\ud83e\udde3", "sport": null,       "coverage": "rolling_out", "blurb": "Hats, flags & cold-weather fan gear.",  "affiliateLinks": [] }
+  ]
+}

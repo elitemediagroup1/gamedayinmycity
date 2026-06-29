@@ -1,0 +1,86 @@
+{
+  "_comment": "Coach concierge content. Coach is honest: it gives real guidance and links to real platform hubs. It NEVER fabricates scores, odds, prices, listings, or counts. Until the /api/coach service exists, the homepage Coach answers from these intents. 'fallback' is used when no intent matches. Each suggestion's 'href' points to a real on-page hub anchor.",
+  "version": 1,
+  "greeting": "Hey! I'm Coach, your AI sports concierge. I can point you to leagues, tournaments, camps, trainers, facilities, gear guides, tickets, rules, recruiting, nutrition and more. Ask away \u2014 or tap a suggestion. Heads up: I guide you to real resources, I don't invent scores, odds, or listings.",
+  "disclaimer": "Coach gives honest guidance and links to real hubs. Where local data is still rolling out, Coach will say so and point you to the waitlist.",
+  "prompts": [
+    "How do I find a youth league near me?",
+    "Help me pick a baseball glove",
+    "Explain betting basics (where legal)",
+    "What's GameDay Live?",
+    "Find tournaments and camps"
+  ],
+  "intents": [
+    {
+      "id": "find_league",
+      "match": ["league", "team to join", "sign up", "youth", "rec", "travel team", "aau", "little league"],
+      "answer": "Great \u2014 here's how to find a local league. Browse the sport in the Local Sports Hub, then narrow by level (youth, travel, high school, college, adult rec). Local league listings are rolling out city by city; if yours isn't live yet, join the waitlist and we'll notify you the moment it lands.",
+      "suggestions": [
+        { "label": "Browse sports", "href": "#hub" },
+        { "label": "See the rollout", "href": "#states" },
+        { "label": "Join the waitlist", "href": "#live" }
+      ]
+    },
+    {
+      "id": "gear",
+      "match": ["glove", "bat", "cleats", "gear", "equipment", "buy", "shoes", "helmet", "best", "recommend"],
+      "answer": "I can help you choose. Start with the matching Shop category for a buying guide \u2014 what to look for by age, position and budget. Real product picks and prices appear once verified affiliate partners are added (no fake prices in the meantime). Tell me the sport, age and position and I'll tell you what specs matter.",
+      "suggestions": [
+        { "label": "Shop categories", "href": "#shop" },
+        { "label": "Equipment guides", "href": "#shop" }
+      ]
+    },
+    {
+      "id": "betting_edu",
+      "match": ["bet", "odds", "moneyline", "spread", "parlay", "sportsbook", "gambling", "wager"],
+      "answer": "I keep betting strictly educational \u2014 I don't show live odds or take wagers. I can explain moneylines, spreads, totals, parlays and expected value in plain English, and point you to what's legal in your state. This is for adults 21+ where sports betting is legal. If gambling stops being fun, call 1-800-GAMBLER.",
+      "suggestions": [
+        { "label": "Betting education", "href": "#explore" },
+        { "label": "Legal status by state", "href": "#states" }
+      ]
+    },
+    {
+      "id": "streaming",
+      "match": ["stream", "watch", "livestream", "gameday live", "broadcast", "live"],
+      "answer": "GameDay Live is the local-streaming product we're building for teams, parents, leagues and sponsors \u2014 family-safe and recruiter-ready. It isn't live yet, and I won't pretend it is. You can join the waitlist or apply to be a league, school or broadcast partner to help launch it in your area.",
+      "suggestions": [
+        { "label": "About GameDay Live", "href": "#live" },
+        { "label": "Join the waitlist", "href": "#live" }
+      ]
+    },
+    {
+      "id": "tournaments_camps",
+      "match": ["tournament", "camp", "clinic", "showcase", "trainer", "lessons"],
+      "answer": "Tournaments, camps, clinics and trainers are part of the local layer we're rolling out city by city. Browse your sport to see what's live in your area; where it's still rolling out, the waitlist will alert you. Organizers can also partner with us to get listed.",
+      "suggestions": [
+        { "label": "Browse sports", "href": "#hub" },
+        { "label": "Partner with us", "href": "#partners" }
+      ]
+    },
+    {
+      "id": "gameday_plan",
+      "match": ["ticket", "parking", "hotel", "restaurant", "tailgate", "travel", "weather", "watch party"],
+      "answer": "Planning the whole day? The Game Day hubs cover tickets, parking, tailgating, food, hotels, travel and more. These connect to real local partners as we roll them out city by city \u2014 no placeholder listings in the meantime.",
+      "suggestions": [
+        { "label": "Game Day hubs", "href": "#gameday" }
+      ]
+    },
+    {
+      "id": "rules_recruiting_nutrition",
+      "match": ["rule", "how to play", "recruit", "scholarship", "college", "nutrition", "diet", "workout", "training plan"],
+      "answer": "I can guide you through rules, recruiting basics, nutrition and workout fundamentals through our guides. These resource pages are rolling out \u2014 tell me your sport and goal and I'll point you to the right starting place.",
+      "suggestions": [
+        { "label": "Browse sports", "href": "#hub" },
+        { "label": "Ask in chat below", "href": "#coach-chat" }
+      ]
+    }
+  ],
+  "fallback": {
+    "answer": "Good question. I'm the concierge for GameDayInMyCity \u2014 I connect you to real hubs for leagues, gear, tickets, streaming, betting education and more. A lot of local data is still rolling out city by city, so I'll always tell you honestly what's live versus coming soon. Try one of the suggestions, or tell me your sport and city.",
+    "suggestions": [
+      { "label": "Browse sports", "href": "#hub" },
+      { "label": "Game Day hubs", "href": "#gameday" },
+      { "label": "See the rollout", "href": "#states" }
+    ]
+  }
+}

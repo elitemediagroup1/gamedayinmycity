@@ -1,0 +1,33 @@
+{
+  "_comment": "Sport categories that power the homepage Local Sports Hub directory (#sportGrid). Each entry is an entity that maps to a future /sports/{slug}/ page. coverage: live | partial | rolling_out | none. No fake inventory counts.",
+  "version": 1,
+  "sports": [
+    { "slug": "baseball",       "name": "Baseball",        "category": "team",       "icon": "\u26be", "coverage": "rolling_out", "blurb": "Youth, travel, high school, college & pro." },
+    { "slug": "softball",       "name": "Softball",        "category": "team",       "icon": "\ud83e\udd4e", "coverage": "rolling_out", "blurb": "Fastpitch & slowpitch, all ages." },
+    { "slug": "basketball",     "name": "Basketball",      "category": "team",       "icon": "\ud83c\udfc0", "coverage": "rolling_out", "blurb": "Rec, AAU, school & pro hoops." },
+    { "slug": "football",       "name": "Football",        "category": "team",       "icon": "\ud83c\udfc8", "coverage": "rolling_out", "blurb": "Flag, tackle, Friday nights & beyond." },
+    { "slug": "soccer",         "name": "Soccer",          "category": "team",       "icon": "\u26bd", "coverage": "rolling_out", "blurb": "Club, school, adult & pro." },
+    { "slug": "hockey",         "name": "Hockey",          "category": "team",       "icon": "\ud83c\udfd2", "coverage": "rolling_out", "blurb": "Ice & roller, youth to pro." },
+    { "slug": "lacrosse",       "name": "Lacrosse",        "category": "team",       "icon": "\ud83e\udd5d", "coverage": "rolling_out", "blurb": "Boys & girls, club to college." },
+    { "slug": "volleyball",     "name": "Volleyball",      "category": "team",       "icon": "\ud83c\udfd0", "coverage": "rolling_out", "blurb": "Indoor & beach, all levels." },
+    { "slug": "wrestling",      "name": "Wrestling",       "category": "combat",     "icon": "\ud83e\udd3c", "coverage": "rolling_out", "blurb": "Folkstyle, freestyle & Greco." },
+    { "slug": "cheer",          "name": "Cheer",           "category": "team",       "icon": "\ud83d\udce3", "coverage": "rolling_out", "blurb": "Sideline & competitive cheer." },
+    { "slug": "gymnastics",     "name": "Gymnastics",      "category": "individual", "icon": "\ud83e\udd38", "coverage": "rolling_out", "blurb": "Artistic, rhythmic & tumbling." },
+    { "slug": "track-and-field","name": "Track & Field",   "category": "individual", "icon": "\ud83c\udfc3", "coverage": "rolling_out", "blurb": "Sprints, distance, jumps & throws." },
+    { "slug": "swimming",       "name": "Swimming",        "category": "individual", "icon": "\ud83c\udfca", "coverage": "rolling_out", "blurb": "Club, school & open water." },
+    { "slug": "golf",           "name": "Golf",            "category": "individual", "icon": "\u26f3", "coverage": "rolling_out", "blurb": "Junior, school & amateur." },
+    { "slug": "tennis",         "name": "Tennis",          "category": "individual", "icon": "\ud83c\udfbe", "coverage": "rolling_out", "blurb": "Junior development to open play." },
+    { "slug": "pickleball",     "name": "Pickleball",      "category": "individual", "icon": "\ud83c\udfd3", "coverage": "rolling_out", "blurb": "The fastest-growing local sport." },
+    { "slug": "running",        "name": "Running",         "category": "outdoor",    "icon": "\ud83d\udc5f", "coverage": "rolling_out", "blurb": "5Ks, trail, road & cross country." },
+    { "slug": "cycling",        "name": "Cycling",         "category": "outdoor",    "icon": "\ud83d\udeb4", "coverage": "rolling_out", "blurb": "Road, mountain & gravel." },
+    { "slug": "fishing",        "name": "Fishing",         "category": "outdoor",    "icon": "\ud83c\udfa3", "coverage": "rolling_out", "blurb": "Tournaments, clubs & local spots." },
+    { "slug": "surfing",        "name": "Surfing",         "category": "outdoor",    "icon": "\ud83c\udfc4", "coverage": "rolling_out", "blurb": "Breaks, contests & lessons." },
+    { "slug": "skateboarding",  "name": "Skateboarding",   "category": "outdoor",    "icon": "\ud83d\udef9", "coverage": "rolling_out", "blurb": "Parks, street & comps." },
+    { "slug": "motorsports",    "name": "Motorsports",     "category": "outdoor",    "icon": "\ud83c\udfce", "coverage": "rolling_out", "blurb": "Karting, dirt & local tracks." },
+    { "slug": "martial-arts",   "name": "Martial Arts",    "category": "combat",     "icon": "\ud83e\udd4b", "coverage": "rolling_out", "blurb": "BJJ, karate, judo, MMA & more." },
+    { "slug": "olympics",       "name": "Olympic Sports",  "category": "individual", "icon": "\ud83c\udfc5", "coverage": "rolling_out", "blurb": "Local qualifiers to the world stage." },
+    { "slug": "adaptive",       "name": "Adaptive Sports", "category": "team",       "icon": "\u267f", "coverage": "rolling_out", "blurb": "Inclusive sports for every athlete." },
+    { "slug": "esports",        "name": "Esports",         "category": "digital",    "icon": "\ud83c\udfae", "coverage": "rolling_out", "blurb": "Brackets, ladders & local scenes." },
+    { "slug": "gaming",         "name": "Gaming",          "category": "digital",    "icon": "\ud83d\udd79", "coverage": "rolling_out", "blurb": "Console, PC, mobile & VR." }
+  ]
+}
