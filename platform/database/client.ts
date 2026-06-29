@@ -28,7 +28,7 @@ export function pgPool(): Pool {
   pool = new Pool({
     connectionString: e.DATABASE_URL,
     // Supabase requires TLS. In production reject-unauthorized is on by default.
-    ssl: e.NODE_ENV === 'production' ? { rejectUnauthorized: true } : { rejectUnauthorized: false },
+    ssl: /localhost|127\.0\.0\.1/.test(e.DATABASE_URL) ? false : { rejectUnauthorized: e.NODE_ENV === 'production' },
     max: 10,
     idleTimeoutMillis: 30_000,
     connectionTimeoutMillis: 10_000,
