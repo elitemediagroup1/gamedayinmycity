@@ -7,7 +7,7 @@
  * (GameDayInMyCity, CareInMyCity, PetsInMyCity, ServicesInMyCity,
  * SchoolsInMyCity, ...) is a tenant of this single shared-schema backend.
  *
- * Multi-tenancy is implemented with row-level scoping via \`platform_id\`
+ * Multi-tenancy is implemented with row-level scoping via `platform_id`
  * (a stable slug for the InMyCity property) rather than schema-per-tenant.
  */
 
@@ -17,7 +17,7 @@
 
 /**
  * Stable identifiers for each InMyCity property. New properties are added here
- * AND seeded into the \`platforms\` table; never inferred from free text.
+ * AND seeded into the `platforms` table; never inferred from free text.
  */
 export type PlatformId =
   | 'gameday'
