@@ -1,0 +1,42 @@
+{
+  "name": "@inmycity/platform",
+  "version": "1.0.0",
+  "private": true,
+  "description": "GameDay Platform core backend — a platform-first, multi-tenant infrastructure powering GameDayInMyCity and all future InMyCity properties.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "dev": "tsx watch api/server.ts",
+    "start": "node dist/api/server.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "db:migrate": "tsx database/migrate.ts up",
+    "db:rollback": "tsx database/migrate.ts down",
+    "db:status": "tsx database/migrate.ts status",
+    "db:seed": "tsx database/seed.ts",
+    "health": "tsx database/healthcheck.ts",
+    "lint": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.13.7",
+    "@hono/zod-validator": "^0.4.1",
+    "@supabase/supabase-js": "^2.46.1",
+    "hono": "^4.6.12",
+    "ioredis": "^5.4.1",
+    "pg": "^8.13.1",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "@types/pg": "^8.11.10",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}
