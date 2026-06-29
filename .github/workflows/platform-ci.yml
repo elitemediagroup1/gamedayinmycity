@@ -27,8 +27,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: npm
-          cache-dependency-path: platform/package-lock.json
       - run: npm ci || npm install
       - run: npm run typecheck
 
@@ -68,8 +66,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: npm
-          cache-dependency-path: platform/package-lock.json
       - run: npm ci || npm install
       - name: Apply migrations
         run: npm run db:migrate
