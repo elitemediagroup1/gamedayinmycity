@@ -15,6 +15,7 @@
  */
 
 import type { PlatformId } from '../../types/index.js';
+import type { QueryResultRow } from 'pg';
 import { query } from '../../database/client.js';
 import { resolvePagination, buildPageMeta, type PaginationInput } from '../../utils/index.js';
 import type { PageMeta } from '../../types/index.js';
@@ -37,7 +38,7 @@ export interface ListOptions {
   orderBy?: string;
 }
 
-export interface ListResult<T> {
+export interface ListResult<T extends QueryResultRow> {
   rows: T[];
   meta: PageMeta;
 }
@@ -46,7 +47,7 @@ export interface ListResult<T> {
  * Execute a tenant-scoped, filtered, paginated list query and return both the
  * page of rows and the total count needed for pagination metadata.
  */
-export async function listResource<T>(opts: ListOptions): Promise<ListResult<T>> {
+export async function listResource<T extends QueryResultRow>(opts: ListOptions): Promise<ListResult<T>> {
   const page = resolvePagination(opts.pagination);
 
   const where: string[] = ['platform_id = $1', 'deleted_at IS NULL'];
