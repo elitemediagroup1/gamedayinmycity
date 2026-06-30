@@ -15,7 +15,7 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reportsDirectory: './coverage',
-      include: ['api/**', 'utils/**', 'config/**', 'types/**', 'shared/**', 'database/**'],
+      include: ['api/**', 'events/**', 'utils/**', 'config/**', 'types/**', 'shared/**', 'database/**'],
     },
   },
 });
