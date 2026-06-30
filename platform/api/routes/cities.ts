@@ -34,6 +34,7 @@ citiesRoutes.get(
     if (!result.success) {
       return validationError(c, 'Invalid query parameters', result.error.flatten());
     }
+    return;
   }),
   async (c) => {
     const { page, per_page, status, coverage, q, state } = c.req.valid('query');
