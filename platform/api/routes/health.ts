@@ -8,10 +8,10 @@
  */
 
 import { Hono } from 'hono';
-import { query } from '../database/client.js';
+import { query } from '../../database/client.js';
 import { loopForwardingEnabled } from '../loop.js';
 import { sendOk } from '../http.js';
-import { nowIso } from '../utils/index.js';
+import { nowIso } from '../../utils/index.js';
 
 type CheckState = 'ok' | 'down';
 
