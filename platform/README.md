@@ -15,7 +15,7 @@ on top of a shared, multi-tenant foundation.
 
 ```
 platform/
-  api/         HTTP layer (Hono on Node) — added in PR-B
+  api/         HTTP layer (Hono on Node): v1 REST API (PR-B)
   database/    Postgres schema, migrations, seeds, client, health checks
   providers/   Provider adapters (SportsDataIO is provider #1) — PR-B
   services/    Domain service layers (CMS) — PR-C
@@ -53,12 +53,13 @@ npm run db:migrate
 npm run db:seed
 npm run health
 npm test
+npm run dev                 # start the v1 REST API locally
 ```
 
 ## Tech stack
 
 - **Runtime:** Node 20+, TypeScript (ESM, strict).
-- **HTTP:** Hono (added in PR-B).
+- **HTTP:** Hono on Node (v1 REST API).
 - **Database:** PostgreSQL via Supabase; `pg` pool + `@supabase/supabase-js`.
 - **Validation:** zod.
 - **Cache:** Redis via `ioredis` (optional; degrades gracefully).
@@ -67,6 +68,7 @@ npm test
 ## Documentation
 
 - `database/README.md` — schema, conventions, migrations, rollback policy.
+- `../docs/API_REFERENCE.md` — v1 REST API reference (endpoints, envelopes).
 - `../docs/ENVIRONMENT.md` — every environment variable.
 - `../docs/DEPLOYMENT.md` — deploy + CI/CD.
 - `../docs/DATABASE_README.md` — operational database reference.
