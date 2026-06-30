@@ -16,7 +16,7 @@ import { createEvent, type EventInput, type PlatformEvent } from './Event.js';
 import { validateEvent, type ValidationIssue } from './EventValidator.js';
 import { Queue, type QueueMetrics, type EventLogger } from './Queue.js';
 import { RetryPolicy } from './RetryPolicy.js';
-import { DeadLetterQueue, type DeadLetterSink, type DeadLetter } from './DeadLetterQueue.js';
+import type { DeadLetterSink, DeadLetter } from './DeadLetterQueue.js';
 import { LoopPublisher, type LoopAdapter } from './LoopPublisher.js';
 
 export interface EventBusOptions {
@@ -114,4 +114,3 @@ export class EventBus {
   }
 }
 
-export { DeadLetterQueue };
