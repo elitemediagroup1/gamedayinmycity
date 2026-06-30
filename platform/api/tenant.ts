@@ -45,6 +45,7 @@ export const tenantResolver = (): MiddlewareHandler => {
 
     c.set('platformId', raw);
     await next();
+    return;
   };
 };
 
