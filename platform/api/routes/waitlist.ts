@@ -27,6 +27,7 @@ waitlistRoutes.post(
     if (!result.success) {
       return validationError(c, 'Invalid request body', result.error.flatten());
     }
+    return;
   }),
   async (c) => {
     const platformId = getPlatformId(c);
