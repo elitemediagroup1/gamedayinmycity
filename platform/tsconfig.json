@@ -33,6 +33,7 @@
   },
   "include": [
     "api/**/*.ts",
+    "events/**/*.ts",
     "database/**/*.ts",
     "providers/**/*.ts",
     "services/**/*.ts",
