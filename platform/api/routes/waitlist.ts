@@ -16,8 +16,8 @@ import type { TenantVariables } from '../tenant.js';
 import { getPlatformId } from '../tenant.js';
 import { WaitlistBody } from '../validation.js';
 import { sendOk, sendError, validationError, ERROR_CODES } from '../http.js';
-import { withTransaction } from '../database/client.js';
-import { buildLoopEvent } from '../shared/index.js';
+import { withTransaction } from '../../database/client.js';
+import { buildLoopEvent } from '../../shared/index.js';
 
 export const waitlistRoutes = new Hono<{ Variables: TenantVariables }>();
 
