@@ -25,6 +25,7 @@ import { statesRoutes } from './routes/states.js';
 import { citiesRoutes } from './routes/cities.js';
 import { articlesRoutes } from './routes/articles.js';
 import { waitlistRoutes } from './routes/waitlist.js';
+import { eventsRoutes } from './routes/events.js';
 
 export const app = new Hono<{ Variables: TenantVariables }>();
 
@@ -42,6 +43,7 @@ api.route('/states', statesRoutes);
 api.route('/cities', citiesRoutes);
 api.route('/articles', articlesRoutes);
 api.route('/waitlist', waitlistRoutes);
+api.route('/events', eventsRoutes);
 
 app.route('/api', api);
 
