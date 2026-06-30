@@ -51,9 +51,8 @@ waitlistRoutes.post(
         const waitlistResult = await client.query<{ id: string; created_at: string }>(
           `INSERT INTO waitlist (platform_id, email, interest, city_id, source)
            VALUES ($1, $2, $3, $4, 'api')
-           ON CONFLICT (platform_id, email) DO UPDATE
-             SET interest = COALESCE(EXCLUDED.interest, waitlist.interest),
-                 city_id  = COALESCE(EXCLUDED.city_id, waitlist.city_id),
+           ON CONFLICT (platform_id, email, interest) DO UPDATE
+             SET city_id  = COALESCE(EXCLUDED.city_id, waitlist.city_id),
                  updated_at = now(),
                  deleted_at = NULL
            RETURNING id, created_at`,
