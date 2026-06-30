@@ -8,6 +8,7 @@
  */
 
 import type { Context } from 'hono';
+import type { ContentfulStatusCode } from 'hono/utils/http-status';
 import type { PageMeta } from '../types/index.js';
 import { ok, fail } from '../utils/index.js';
 
@@ -24,7 +25,7 @@ export const ERROR_CODES = {
 export type ErrorCode = (typeof ERROR_CODES)[keyof typeof ERROR_CODES];
 
 /** Map an error code to a sensible default HTTP status. */
-const STATUS_BY_CODE: Record<string, number> = {
+const STATUS_BY_CODE: Record<string, ContentfulStatusCode> = {
   [ERROR_CODES.VALIDATION]: 400,
   [ERROR_CODES.TENANT_INVALID]: 400,
   [ERROR_CODES.NOT_FOUND]: 404,
@@ -34,8 +35,13 @@ const STATUS_BY_CODE: Record<string, number> = {
 };
 
 /** Send a typed success envelope. */
-export function sendOk<T>(c: Context, data: T, meta?: PageMeta, status = 200) {
-  return c.json(ok(data, meta), status as 200);
+export function sendOk<T>(
+  c: Context,
+  data: T,
+  meta?: PageMeta,
+  status: ContentfulStatusCode = 200,
+) {
+  return c.json(ok(data, meta), status);
 }
 
 /** Send a typed error envelope with a status derived from the code. */
@@ -46,7 +52,7 @@ export function sendError(
   details?: unknown,
 ) {
   const status = STATUS_BY_CODE[code] ?? 400;
-  return c.json(fail(code, message, details), status as 400);
+  return c.json(fail(code, message, details), status);
 }
 
 /** Convenience wrappers for the most common error kinds. */
