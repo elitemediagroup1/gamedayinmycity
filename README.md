@@ -1,16 +1,26 @@
-# GameDayInMyCity
+# GameDay In My City
 
-**Every Game. Every City. Every Fan.** — the landing page for a local-first sports, gaming, and game-day platform.
+The homepage offers five entry points for playing sports, attending events, organizing game nights, managing gear and collectibles, and exploring 21+ betting-rule scenarios. The original sports directory and Coach are available in `explore.html`. Existing homepage section links continue to open their matching directory sections.
 
-This is a static website (HTML + CSS + vanilla JavaScript). No build step, no frameworks, no dependencies. You can open it directly in a browser or host it for free on GitHub Pages.
+### Run and configure the preview
 
----
+Serve the repository root as static files to use the planners, locker, rules exercises, and curated directory. To run shared game nights and provider integrations, install the root npm dependencies and use Netlify Dev or deploy this repo to Netlify. The static pages do not require a build command.
+
+| Setting | Purpose |
+| --- | --- |
+| `GOOGLE_PLACES_API_KEY` | Optional server-only key for Google Places API (New). Enable billing and restrict the key to the required API. |
+| `TICKETMASTER_DISCOVERY_API_KEY` | Optional server-only key for Ticketmaster Discovery event search. |
+
+Set provider keys in the Netlify Functions environment for the intended deploy context and redeploy. Without keys, discovery still uses the curated resources and dated event listings. Google-sourced results are attributed and excluded from persistent lockers. Nationwide ZIP lookup uses Zippopotam.us. Four Jersey Shore ZIP centers work without that service.
+
+Game nights use Netlify Blobs. Local calendars, gear records, and personal saves live in the visitor’s browser. The shareable tool entry points accept `?tool=play`, `attend`, `gaming`, `gear`, or `betting`. Play and Attend can also receive `sport`. The game night feature creates its own invite URLs.
 
 ## 📁 Project structure
 
 ```
 gamedayinmycity/
-├── index.html          ← the page (structure/content)
+├── index.html          ← sports discovery homepage
+├── explore.html        ← original directory and Coach
 ├── css/
 │   └── styles.css      ← all styling (colors, layout, responsive)
 ├── js/
