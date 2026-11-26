@@ -41,3 +41,22 @@
 #panel:has(#tool-body){width:min(790px,calc(100vw - 24px))}
 @media(max-width:900px){.experience-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.cover{grid-template-columns:1.9fr 1fr}.hero-cover h1{font-size:clamp(4rem,8vw,5.15rem)}}
 @media(max-width:650px){.cover{grid-template-columns:1fr}.hero-cover{min-height:330px}.hero-cover h1{font-size:clamp(4.1rem,14vw,6rem)}.feature-night{min-height:119px;padding:17px 20px}.feature-night img{object-position:50% 48%}.feature-night:after{background:linear-gradient(90deg,#131121f5,#19132588 56%,transparent)}.night-content{gap:5px}.night-content strong{font-size:1.9rem}.night-content strong br{display:none}.night-content strong br:after{content:' '}.night-cta{font-size:.8rem}.sport-strip{gap:8px}.sport-strip .all-sports{padding-right:11px}.experience-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.exp-card>span{padding:11px}.exp-card i{font-size:.84rem}.planner-band{grid-template-columns:1fr;gap:16px}.nav nav>a:first-child{display:block}.experiences .section-head{align-items:center}.experiences .section-head h2{font-size:1.85rem}.hero-cover .lead-copy{max-width:295px}}
+
+.coach-desk{background:#182823;color:#fff;border-radius:4px;position:relative;overflow:hidden;display:flex;align-items:flex-end;min-height:265px}
+.coach-portrait{position:absolute;right:0;top:0;height:100%;width:83%;object-fit:cover;object-position:50% 13%}
+.coach-desk:after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,#10241f 6%,#10241ff5 24%,transparent 78%)}
+.coach-desk-content{position:relative;z-index:1;width:100%;padding:20px}
+.coach-desk h2{margin:0;font:800 clamp(2rem,3vw,3rem)/1 var(--display)}
+.coach-desk p{margin:.35rem 0 .8rem}
+.coach-desk form,.coach-input{display:flex;gap:5px}
+.coach-desk input,.coach-input input{flex:1;min-width:0;border:1px solid #63746e;border-radius:4px;padding:.65rem;font:inherit}
+.coach-desk form button,.coach-input button{background:#d8fc78;border:0;border-radius:4px;padding:.6rem .9rem;color:#132419;font-weight:700}
+.coach-thread{display:grid;gap:.65rem;margin-bottom:1rem}
+.coach-thread p{margin:.3rem 0}
+.coach-turn{border-left:3px solid #83a34a;background:#f0f4ea;padding:.65rem .85rem}
+.coach-you{font-weight:650}
+.coach-choices{display:flex;flex-wrap:wrap;gap:.4rem;margin:.6rem 0}
+.coach-help{border-top:1px solid var(--rule);margin-top:1.2rem;padding-top:.7rem}
+.coach-help summary{cursor:pointer;font-weight:700}
+#home-coach .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+@media(max-width:760px){.coach-desk{min-height:170px}.coach-portrait{width:33%;object-position:center 15%}.coach-desk-content{width:73%;padding:14px}.coach-desk:after{background:linear-gradient(90deg,#10241f 50%,transparent 85%)}}

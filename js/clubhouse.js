@@ -2,7 +2,7 @@
 
 (() => {
   // Retain links shared before the new homepage went live.
-  const legacyAnchors = new Set(['hub','gameday','live','explore','gaming','shop','states','coach','coach-chat','partners','panel-sports','panel-betting','panel-gaming','panel-gear']);
+  const legacyAnchors = new Set(['hub','gameday','live','explore','gaming','shop','states','partners','panel-sports','panel-betting','panel-gaming','panel-gear']);
   if (legacyAnchors.has(location.hash.slice(1))) {
     location.replace('explore.html' + location.search + location.hash);
     return;
@@ -223,6 +223,7 @@
     panel(name, SPORTS_EXPERIENCES[name]);
     body.innerHTML = '<div id="tool-body"></div>';
     render({sport: subject});
+    body.append(GameDayCoach.help(name));
   }
 
   window.GameDayTools.addPlan = params => eventForm(params, view);
@@ -295,7 +296,15 @@
       } catch { /* Featured sports and free-text search remain usable offline. */ }
     }
   }
-  const views={week,discover,windows,locker,credits,sports:browseSports,event:()=>eventForm(),...Object.fromEntries(Object.keys(SPORTS_EXPERIENCES).map(name=>[name,()=>openTool(name)]))};
+  function openCoach(question = '') {
+    panel('coach','Ask Coach');
+    GameDayCoach.chat(body,question);
+  }
+  document.querySelector('#home-coach').addEventListener('submit',event=>{
+    event.preventDefault();
+    openCoach(document.querySelector('#coach-question').value.trim());
+  });
+  const views={coach:()=>openCoach(),week,discover,windows,locker,credits,sports:browseSports,event:()=>eventForm(),...Object.fromEntries(Object.keys(SPORTS_EXPERIENCES).map(name=>[name,()=>openTool(name)]))};
   document.addEventListener('click',e=>{
     const b=e.target.closest('button');
     if(!b)return;
@@ -366,6 +375,7 @@
   document.querySelector('#local-picks').innerHTML=localPicks.map(t=>resources.find(r=>r.title===t)).filter(Boolean).map(r=>'<article class="local-pick"><div class="eyebrow dark">'+esc(r.city)+'</div><a class="inline" href="'+esc(r.url)+'" target="_blank" rel="noopener">'+esc(r.title)+'</a><p>'+esc(r.detail)+'</p></article>').join('');
   home();
   const incoming = new URLSearchParams(location.search);
-  if (incoming.has('night')) openTool('gaming');
+  if (['#coach','#coach-chat'].includes(location.hash) || incoming.get('tool')==='coach') openCoach();
+  else if (incoming.has('night')) openTool('gaming');
   else if (Object.hasOwn(SPORTS_EXPERIENCES, incoming.get('tool'))) openTool(incoming.get('tool'), incoming.get('sport') || '');
 })();
