@@ -14,12 +14,13 @@
 <script src="js/discovery-tools.js" defer></script>
 <script src="js/game-night.js" defer></script>
 <script src="js/fan-tools.js" defer></script>
+<script src="js/coach.js" defer></script>
 <script src="js/clubhouse.js" defer></script>
 </head><body>
 <a class="skip" href="#main">Skip to content</a>
 <header><div class="nav wrap">
 <a href="./" class="brand" aria-label="GameDay In My City home"><span class="brandmark" aria-hidden="true"></span><span class="brandwords">GAMEDAY<small>IN MY CITY</small></span></a>
-<nav aria-label="Main"><a href="explore.html#coach-chat">Ask Coach</a><button data-open="sports">Browse sports</button><button data-open="week">My week</button></nav>
+<nav aria-label="Main"><button data-open="coach">Ask Coach</button><button data-open="sports">Browse sports</button><button data-open="week">My week</button></nav>
 <button class="locker-link" data-open="locker"><span aria-hidden="true">☆</span> My locker <span class="count" id="saved-count">0</span></button>
 </div></header>
 <aside class="league-desk"><div class="wrap league-inner"><strong>League desk</strong><div id="league-links" aria-label="Official league schedules and scores"></div></div></aside>
@@ -31,7 +32,7 @@
     <p class="lead-copy">Discover a sport to try or a game to go to, starting where you are.</p>
     <div class="hero-controls"><button class="solid" data-tool="play">Find sports near me</button><button class="ghost-action" data-tool="attend">Find a game to attend</button></div>
   </div></div>
-  <a class="feature-night coach-cover" href="explore.html#coach-chat"><img src="assets/coach.jpg" alt=""><span class="night-content"><span class="eyebrow">Your sports concierge</span><strong>ASK COACH</strong><span class="night-cta">Find a league, gear or a game →</span></span></a>
+  <aside class="coach-desk" aria-label="Ask Coach"><img class="coach-portrait" src="assets/coach.jpg" alt="Coach, the GameDay sports guide"><div class="coach-desk-content"><h2>ASK COACH</h2><p>What do you want to play, watch or try?</p><form id="home-coach"><label class="sr-only" for="coach-question">Your question for Coach</label><input id="coach-question" maxlength="260" placeholder="Where can I play hockey?"><button aria-label="Ask Coach your question">→</button></form></div></aside>
 </section>
 <div class="sport-strip" aria-label="Browse by sport"><button data-open="sports" class="all-sports">Browse sports</button><div id="sport-shortcuts"></div></div>
 <section id="experiences" class="experiences"><div class="section-head"><h2>THE GAME ROOM</h2><button class="line-action" data-open="discover">Resource directory</button></div>
@@ -45,7 +46,7 @@
 <section class="planner-band"><div><h2>MY SPORTS WEEK</h2><p>Keep games, practices and outings on one calendar. See where the next one fits.</p><button class="line-action" data-open="event">Add a plan</button></div><aside class="week-card"><div class="week-top"><span class="eyebrow">My calendar</span><span class="calendar-icon" aria-hidden="true">▦</span></div><h2>THIS WEEK</h2><p class="week-range" id="home-range"></p><div class="days" id="home-days" aria-label="Select a day"></div><div id="home-agenda"></div><div class="week-links"><button class="text-action" data-open="week">Open my week</button><button class="text-action" data-open="windows">Find a free window</button></div></aside></section>
 <section class="local-section"><div class="section-head"><div><p class="eyebrow dark">City edition</p><h2>ON THE JERSEY SHORE</h2></div><button class="line-action" id="open-local">See local resources</button></div><div id="local-picks" class="local-picks"></div></section>
 <div class="partner"><div><p class="eyebrow">Clubs &amp; local businesses</p><h2>Bring your organization to the guide.</h2></div><a class="light-button" href="mailto:hello@elitemediagroup.io?subject=GameDay%20local%20listing%20or%20partnership">Contact GameDay</a></div>
-</main><footer class="wrap"><span>GameDay In My City · Elite Media Group</span><div><a href="explore.html#coach">Ask Coach</a><a href="explore.html#hub">All sports</a><a href="explore.html#gaming">Gaming guides</a><a href="explore.html#shop">Gear guides</a><a href="explore.html#live">GameDay Live</a><button data-open="credits">Photo credits</button></div></footer>
+</main><footer class="wrap"><span>GameDay In My City · Elite Media Group</span><div><button data-open="coach">Ask Coach</button><a href="explore.html#hub">All sports</a><a href="explore.html#gaming">Gaming guides</a><a href="explore.html#shop">Gear guides</a><a href="explore.html#live">GameDay Live</a><button data-open="credits">Photo credits</button></div></footer>
 <dialog id="panel" aria-labelledby="panel-title"><div class="panel-head"><div><span class="eyebrow dark">GameDay In My City</span><h2 id="panel-title"></h2></div><button class="close" id="close-panel" aria-label="Close dialog">×</button></div><div id="panel-body"></div></dialog>
 <div id="notice" role="status" aria-live="polite"></div>
 </body></html>
