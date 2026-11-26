@@ -25,7 +25,7 @@
   const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
   const weekStart = d => plusDays(d,-((d.getDay()+6)%7));
   const atTime = (key,hhmm) => new Date(key + 'T' + hhmm);
-  const emptyState = () => ({events:[], saves:[]});
+  const emptyState = () => ({events:[], saves:[], discoveries:[], outcomes:[]});
   const initialDate = dayKey(now);
   let selected = initialDate;
   let filter = defaultFilter();
@@ -39,9 +39,13 @@
   function readState() {
     try {
       const raw = JSON.parse(localStorage.getItem(storeKey) || '{}');
+      const discoveries = Array.isArray(raw.discoveries) ? raw.discoveries.filter(r=>r && typeof r.title==='string' && /^https:\/\//.test(r.url)) : [];
+      const validUrls = new Set([...resources, ...discoveries].map(r=>r.url));
       return {
+        discoveries,
+        outcomes: Array.isArray(raw.outcomes) ? raw.outcomes.filter(url=>validUrls.has(url)) : [],
         events:Array.isArray(raw.events) ? raw.events.filter(e => e && typeof e.id === 'string' && typeof e.title === 'string' && Number.isFinite(e.start) && Number.isFinite(e.end) && e.end>e.start) : [],
-        saves:Array.isArray(raw.saves) ? raw.saves.filter(url => resources.some(r=>r.url===url)) : []
+        saves:Array.isArray(raw.saves) ? raw.saves.filter(url => validUrls.has(url)) : []
       };
     } catch { return emptyState(); }
   }
@@ -100,9 +104,10 @@
     dialog.scrollTop=0;
   }
   function resourceCard(r) {
-    const idx=resources.indexOf(r);
+    const idx=allResources().findIndex(item=>item.url===r.url);
     const saved=state.saves.includes(r.url);
-    return '<article class="resource"><div class="meta">'+esc(r.city)+' · '+esc(r.sport)+'</div><h3>'+esc(r.title)+'</h3><p>'+esc(r.detail)+'</p><div class="row-actions"><a href="'+esc(r.url)+'" target="_blank" rel="noopener">Official site</a>'+action(saved?'Unsave':'Save to locker',{attr:'data-save="'+idx+'" aria-pressed="'+saved+'"'})+action('Add to my week',{attr:'data-plan="'+idx+'"'})+'</div></article>';
+    return '<article class="resource"><div class="meta">'+esc(r.city)+' · '+esc(r.sport)+'</div><h3>'+esc(r.title)+'</h3><p>'+esc(r.detail)+'</p><div class="row-actions"><a href="'+esc(r.url)+'" target="_blank" rel="noopener">Official site</a>'+action(saved?'Unsave':'Save to locker',{attr:'data-save="'+idx+'" aria-pressed="'+saved+'"'})+action('Add to my week',{attr:'data-plan="'+idx+'"'})+
+      (view==='locker' ? action(state.outcomes.includes(r.url)?'Marked as tried · undo':r.kind==='Play'?'I tried this':'I went',{attr:'data-outcome="'+idx+'" aria-pressed="'+state.outcomes.includes(r.url)+'"'}) : '')+'</div></article>';
   }
   function showResults(){
     const query=filter.query.trim().toLowerCase();
@@ -132,7 +137,7 @@
     return '<article class="entry"><div class="meta">'+esc(clock(new Date(e.start)))+' – '+esc(clock(new Date(e.end)))+' · '+esc(e.type)+'</div><h3>'+esc(e.title)+'</h3>'+
       (e.place?'<p>'+esc(e.place)+'</p>':'')+(overlaps(e)?'<p class="conflict">Overlaps another item in your week.</p>':'')+
       '<div class="row-actions">'+action('Edit',{attr:'data-edit="'+esc(e.id)+'"'})+action('Remove',{attr:'data-remove="'+esc(e.id)+'"'})+
-      (resources.some(r=>r.url===e.url)?'<a target="_blank" rel="noopener" href="'+esc(e.url)+'">Official details</a>':'')+'</div></article>';
+      (allResources().some(r=>r.url===e.url)?'<a target="_blank" rel="noopener" href="'+esc(e.url)+'">Official details</a>':'')+'</div></article>';
   }
   function week(){
     panel('week','My sports week');
@@ -182,9 +187,12 @@
       '<label class="field wide">Place or team <small>(optional)</small><input name="place" maxlength="120" value="'+esc(params.place||'')+'"></label></div>'+
       '<p class="fine">Times use your device’s time zone. Saving a plan doesn’t reserve a place.</p><button type="submit" class="dark-button">Save plan</button> <button type="button" class="outline" data-cancel>Cancel</button></form>';
   }
+  function allResources() {
+    return [...resources, ...state.discoveries.filter(item=>!resources.some(r=>r.url===item.url))];
+  }
   function locker(){
     panel('locker','My locker');
-    const rows=resources.filter(r=>state.saves.includes(r.url));
+    const rows=allResources().filter(r=>state.saves.includes(r.url));
     body.innerHTML='<p>Keep the leagues, venues and schedules you use most in one place.</p>'+
       (rows.length?rows.map(resourceCard).join(''):'<p class="empty">No saved resources yet. Save a local club, a venue guide or a league schedule from the field guide.</p>')+
       '<div class="row-actions">'+action('Explore resources',{cls:'dark-button',attr:'data-open="discover"'})+action('Open my week',{attr:'data-open="week"'})+'</div>';
@@ -206,28 +214,115 @@
   }
   function credits(){
     panel('credits','Photo credits');
-    const photos=[['Football','Henry Lösing','oEVOqvX12NQ'],['Basketball','Olya Brunelli','n8wgIZxlM_o'],['Baseball','Gurdaas Malik','OLBctbqI3YY'],['Stadium','Tanya Barrow','ZOJg4CtbKwk']];
+    const photos=[['Football','Henry Lösing','oEVOqvX12NQ'],['Basketball','Olya Brunelli','n8wgIZxlM_o'],['Baseball','Gurdaas Malik','OLBctbqI3YY'],['Stadium','Tanya Barrow','ZOJg4CtbKwk'],['Gaming','Javier Martínez','hUD0PUczwJQ'],['Glove','Diana Polekhina','w1sYdquxs-I']];
     body.innerHTML=photos.map(([sport,author,id])=>'<p>'+sport+' · <a href="https://unsplash.com/photos/'+id+'" target="_blank" rel="noopener">'+esc(author)+'</a></p>').join('')+'<p class="fine">Photography used under the Unsplash License.</p>';
   }
-  const views={week,discover,windows,locker,credits,event:()=>eventForm()};
+  function openTool(name, subject = '') {
+    const render = window.GameDayTools[name];
+    if (!Object.hasOwn(SPORTS_EXPERIENCES, name) || typeof render !== 'function') return;
+    panel(name, SPORTS_EXPERIENCES[name]);
+    body.innerHTML = '<div id="tool-body"></div>';
+    render({sport: subject});
+  }
+
+  window.GameDayTools.addPlan = params => eventForm(params, view);
+  window.GameDayTools.remember = item => {
+    if (!item || typeof item.title !== 'string' || !/^https:\/\//.test(item.url)) return false;
+    const discovery = {};
+    for (const field of ['title','url','city','detail','sport','kind']) discovery[field] = String(item[field] || '');
+    commit(s => {
+      if (!resources.some(r=>r.url===item.url) && !s.discoveries.some(r=>r.url===item.url)) s.discoveries.push(discovery);
+      if (!s.saves.includes(item.url)) s.saves.push(item.url);
+    });
+    notify('Saved to your locker.');
+    return true;
+  };
+
+  const featuredSports = ['Football', 'Basketball', 'Baseball', 'Hockey', 'Soccer', 'Pickleball', 'Esports'];
+  let sportsCatalog;
+  function sportHub(sport) {
+    panel('sports', sport);
+    body.innerHTML = '<div class="hub-links"></div>';
+    const container = body.querySelector('.hub-links');
+    const digital = ['Gaming', 'Esports', 'Sim racing'].includes(sport);
+    const choices = digital
+      ? [['gaming', 'Organize a game night'], ['gear', 'Open my gear locker']]
+      : [['play', 'Find places to play'], ['attend', 'Explore outings'], ['gear', 'Open my gear locker']];
+    for (const [tool, label] of choices) {
+      const button = document.createElement('button');
+      button.textContent = label;
+      button.dataset.tool = tool;
+      button.dataset.subject = sport;
+      container.append(button);
+    }
+    const back = document.createElement('button');
+    back.className = 'inline';
+    back.dataset.open = 'sports';
+    back.textContent = 'Browse all sports';
+    body.append(back);
+  }
+  async function browseSports() {
+    panel('sports','Browse sports');
+    body.innerHTML = '<label class="field">Find a sport<input type="search" id="sport-lookup" placeholder="Try hockey or sim racing"></label><p class="fine">Choose a sport to explore available tools.</p><div class="sport-choices"></div>';
+    const list = body.querySelector('.sport-choices');
+    const input = body.querySelector('#sport-lookup');
+    function draw() {
+      list.replaceChildren();
+      const term = input.value.trim().toLowerCase();
+      const sports = (sportsCatalog || featuredSports).filter(name=>name.toLowerCase().includes(term));
+      for (const sport of sports) {
+        const button = document.createElement('button');
+        button.dataset.sportHub = sport;
+        button.textContent = sport;
+        list.append(button);
+      }
+      if (!sports.length && term) {
+        const button = document.createElement('button');
+        button.dataset.sportHub = input.value.trim().slice(0,70);
+        button.textContent = 'Explore ' + button.dataset.sportHub;
+        list.append(button);
+      }
+    }
+    input.addEventListener('input', draw);
+    draw();
+    if (!sportsCatalog) {
+      try {
+        const res = await fetch('data/sports.json');
+        if (!res.ok) return;
+        const data = await res.json();
+        sportsCatalog = [...new Set([...data.sports.map(sport=>sport.name), ...resources.flatMap(r=>r.sport.split(' / ')), 'Sim racing', 'Curling', 'Wheelchair basketball'])].filter(s=>s!=='Multi-sport').sort();
+        if (list.isConnected) draw();
+      } catch { /* Featured sports and free-text search remain usable offline. */ }
+    }
+  }
+  const views={week,discover,windows,locker,credits,sports:browseSports,event:()=>eventForm(),...Object.fromEntries(Object.keys(SPORTS_EXPERIENCES).map(name=>[name,()=>openTool(name)]))};
   document.addEventListener('click',e=>{
     const b=e.target.closest('button');
     if(!b)return;
     const d=b.dataset;
+    if (d.tool) {openTool(d.tool,d.subject || '');return;}
+    if (d.sportHub) {sportHub(d.sportHub);return;}
+    if (b.closest('#tool-body')) return;
     if(d.open){if(d.open==='discover')discoverySlot=null;if(d.when)selected=d.when;views[d.open]?.();return;}
     if(d.day){selected=d.day;home();if(d.scope==='panel')week();return;}
     if(d.kind||b.id==='open-local'){discoverySlot=null;filter=defaultFilter();if(d.kind)filter.kind=d.kind;else filter.area='Jersey Shore';discover();return;}
     if(d.filter){filter.kind=d.filter;discover();return;}
     if('reset' in d){filter=defaultFilter();discover();return;}
+    if ('outcome' in d) {
+      const item = allResources()[Number(d.outcome)];
+      if (item) commit(s=>{s.outcomes = s.outcomes.includes(item.url) ? s.outcomes.filter(url=>url!==item.url) : [...s.outcomes,item.url];});
+      locker();
+      return;
+    }
     if('save' in d){
-      const r=resources[Number(d.save)];
+      const r=allResources()[Number(d.save)];
       commit(s=>{s.saves=s.saves.includes(r.url)?s.saves.filter(url=>url!==r.url):s.saves.concat(r.url);});
       if(view==='locker')locker();else showResults();
       notify(state.saves.includes(r.url)?'Saved to your locker.':'Removed from your locker.');
       return;
     }
     if('match' in d){discoverySlot={start:Number(d.match),minutes:Number(d.duration)};filter=defaultFilter();filter.area='Jersey Shore';discover();return;}
-    if('plan' in d){const r=resources[Number(d.plan)];const slot=view==='discover'&&discoverySlot?{start:discoverySlot.start,end:discoverySlot.start+discoverySlot.minutes*60000}:{};eventForm({...slot,title:r.title,place:r.city==='Nationwide'?'':r.city,url:r.url,type:r.kind==='Play'?'Open play':r.kind==='Watch'?'Watch':'Outing'},view);return;}
+    if('plan' in d){const r=allResources()[Number(d.plan)];const slot=view==='discover'&&discoverySlot?{start:discoverySlot.start,end:discoverySlot.start+discoverySlot.minutes*60000}:{};eventForm({...slot,title:r.title,place:r.city==='Nationwide'?'':r.city,url:r.url,type:r.kind==='Play'?'Open play':r.kind==='Watch'?'Watch':'Outing'},view);return;}
     if(d.step){selected=dayKey(plusDays(localDay(selected),Number(d.step)));week();return;}
     if(d.window){const start=Number(d.window);eventForm({start,end:start+Number(d.duration)*60000,type:'Open play'},'windows');return;}
     if(d.edit){const ev=state.events.find(item=>item.id===d.edit);if(ev)eventForm(ev);return;}
@@ -239,6 +334,7 @@
   });
   body.addEventListener('input',e=>{if(e.target.id==='query'){filter.query=e.target.value;showResults();}});
   body.addEventListener('change',e=>{
+    if(e.target.closest('#tool-body'))return;
     if(['sport','area','level'].includes(e.target.id)){filter[e.target.id]=e.target.value;showResults();}
     if(['window-day','window-length'].includes(e.target.id))windowList();
   });
@@ -256,10 +352,20 @@
   });
   dialog.addEventListener('click',e=>{if(e.target!==dialog)return;const box=dialog.getBoundingClientRect();if(e.clientX<box.left||e.clientX>box.right||e.clientY<box.top||e.clientY>box.bottom)dialog.close();});
   window.addEventListener('storage',e=>{if(e.key===storeKey||e.key===null){state=readState();home();if(dialog.open&&['week','locker','discover','windows'].includes(view))views[view]();}});
+  const shortcutBar = document.querySelector('#sport-shortcuts');
+  for (const sport of featuredSports) {
+    const button = document.createElement('button');
+    button.dataset.sportHub = sport;
+    button.textContent = sport;
+    shortcutBar.append(button);
+  }
   document.querySelector('#today').textContent=stamp(now,{weekday:'long',month:'short',day:'numeric'});
   const leagues=resources.filter(r=>r.kind==='Watch'&&r.city==='Nationwide');
   document.querySelector('#league-links').innerHTML=leagues.map(r=>'<a href="'+esc(r.url)+'" target="_blank" rel="noopener" aria-label="'+esc(r.title)+'">'+esc(r.title.split(' ')[0])+'</a>').join('');
   const localPicks=['Stafford Township Recreation','Winding River Ice Rink',resources.find(r=>localCities.has(r.city)&&r.kind==='Watch')?.title];
   document.querySelector('#local-picks').innerHTML=localPicks.map(t=>resources.find(r=>r.title===t)).filter(Boolean).map(r=>'<article class="local-pick"><div class="eyebrow dark">'+esc(r.city)+'</div><a class="inline" href="'+esc(r.url)+'" target="_blank" rel="noopener">'+esc(r.title)+'</a><p>'+esc(r.detail)+'</p></article>').join('');
   home();
+  const incoming = new URLSearchParams(location.search);
+  if (incoming.has('night')) openTool('gaming');
+  else if (Object.hasOwn(SPORTS_EXPERIENCES, incoming.get('tool'))) openTool(incoming.get('tool'), incoming.get('sport') || '');
 })();

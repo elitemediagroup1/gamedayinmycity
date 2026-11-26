@@ -1,36 +1,51 @@
 <!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#151b1a"><meta name="description" content="Plan your sports week, find local places to play, and save venue guides and game schedules with GameDay In My City.">
-<title>GameDay In My City | Your sports week</title>
-<link rel="icon" href="assets/favicon.png"><link rel="preload" href="assets/clubhouse/barlow-condensed.ttf" as="font" type="font/ttf" crossorigin>
-<link rel="stylesheet" href="css/clubhouse.css"><script src="js/field-guide.js" defer></script><script src="js/clubhouse.js" defer></script>
+<meta name="theme-color" content="#151b1a">
+<meta name="description" content="Discover sports near you, plan a game outing, organize a gaming night, and build your sports collection with GameDay In My City.">
+<title>GameDay In My City | Play, watch &amp; compete</title>
+<link rel="icon" href="assets/favicon.png">
+<link rel="preload" href="assets/clubhouse/barlow-condensed.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="css/clubhouse.css">
+<link rel="stylesheet" href="css/sports-hub.css">
+<link rel="stylesheet" href="css/fan-tools.css">
+<script src="js/field-guide.js" defer></script>
+<script src="js/sports-hub.js" defer></script>
+<script src="js/discovery-tools.js" defer></script>
+<script src="js/game-night.js" defer></script>
+<script src="js/fan-tools.js" defer></script>
+<script src="js/clubhouse.js" defer></script>
 </head><body>
 <a class="skip" href="#main">Skip to content</a>
 <header><div class="nav wrap">
 <a href="./" class="brand" aria-label="GameDay In My City home"><span class="brandmark" aria-hidden="true"></span><span class="brandwords">GAMEDAY<small>IN MY CITY</small></span></a>
-<nav aria-label="Main"><button data-open="discover">Discover</button><button data-open="week">My week</button><a href="explore.html#hub">More sports</a></nav>
+<nav aria-label="Main"><a href="#experiences">Explore</a><button data-open="sports">Browse sports</button><button data-open="week">My week</button></nav>
 <button class="locker-link" data-open="locker"><span aria-hidden="true">☆</span> My locker <span class="count" id="saved-count">0</span></button>
 </div></header>
 <aside class="league-desk"><div class="wrap league-inner"><strong>League desk</strong><div id="league-links" aria-label="Official league schedules and scores"></div></div></aside>
 <main id="main" class="wrap">
-<div class="mastline"><span>Local sports desk</span><span id="today"></span></div>
-<section class="lead" aria-label="Plan the week">
-<div class="hero"><img src="assets/clubhouse/hero-football.webp" alt="Two football teams line up for a snap" fetchpriority="high"><div class="hero-shade"></div><div class="hero-text">
-<p class="hero-tag"><span></span> The weekly playbook</p>
-<h1>BUILD YOUR<br><em>SPORTS WEEK.</em></h1><p class="lead-copy">Put games, practices and places to play on one calendar.</p>
-<button class="solid" data-open="event">Plan my week <span aria-hidden="true">＋</span></button></div></div>
-<aside class="week-card"><div class="week-top"><span class="eyebrow">My calendar</span><span class="calendar-icon" aria-hidden="true">▦</span></div><h2>THIS WEEK</h2><p class="week-range" id="home-range"></p><div class="days" id="home-days" aria-label="Select a day"></div><div id="home-agenda"></div><div class="week-links"><button class="text-action" data-open="week">Open my week</button><button class="text-action" data-open="windows">Find a free window</button></div></aside>
+<div class="mastline"><span>Sports discovery</span><span id="today"></span></div>
+<section class="cover" aria-labelledby="cover-title">
+  <div class="hero hero-cover"><img src="assets/clubhouse/hero-football.webp" alt="Two football teams line up for a snap" fetchpriority="high"><div class="hero-shade"></div><div class="hero-text">
+    <h1 id="cover-title">FIND YOUR<br><em>NEXT GAME.</em></h1>
+    <p class="lead-copy">Discover a sport to try or a game to go to, starting where you are.</p>
+    <div class="hero-controls"><button class="solid" data-tool="play">Find sports near me</button><button class="ghost-action" data-tool="attend">Find a game to attend</button></div>
+  </div></div>
+  <button class="feature-night" data-tool="gaming"><img src="assets/clubhouse/gaming.webp" alt="Gaming controller"><span class="night-content"><span class="eyebrow">Gaming &amp; esports</span><strong>YOUR NEXT <br>GAME NIGHT</strong><span class="night-cta">Set up a weekly game</span></span></button>
 </section>
-<section class="discover-section"><div class="section-head"><div><p class="eyebrow dark">Explore</p><h2>THE FIELD GUIDE</h2></div><button class="line-action" data-open="discover">Browse all resources</button></div>
-<div class="features">
-<button class="feature" data-kind="Play"><span class="imagebox"><img src="assets/clubhouse/basketball.webp" alt="An outdoor basketball court after dark"></span><span class="feature-copy"><span class="eyebrow">Participation</span><b>Find a place to play</b><span>Clubs, courts and local programs.</span></span></button>
-<button class="feature" data-kind="Venue"><span class="imagebox"><img src="assets/clubhouse/stadium.webp" alt="Fans fill the stands before a soccer match"></span><span class="feature-copy"><span class="eyebrow">At the game</span><b>Know your venue</b><span>Official guides for a smoother arrival.</span></span></button>
-<button class="feature" data-kind="Watch"><span class="imagebox"><img src="assets/clubhouse/baseball.webp" alt="A baseball player follows through at the plate"></span><span class="feature-copy"><span class="eyebrow">Schedules</span><b>Follow the games</b><span>Team schedules and league scoreboards.</span></span></button>
+<div class="sport-strip" aria-label="Browse by sport"><button data-open="sports" class="all-sports">Browse sports</button><div id="sport-shortcuts"></div></div>
+<section id="experiences" class="experiences"><div class="section-head"><h2>THE GAME ROOM</h2><button class="line-action" data-open="discover">Resource directory</button></div>
+<div class="experience-grid">
+  <button class="exp-card" data-tool="play"><img src="assets/clubhouse/basketball.webp" alt="" loading="lazy"><span><small>Play &amp; train</small><b>Try a sport</b><i>Find your first session, a club or a place to play.</i></span></button>
+  <button class="exp-card" data-tool="attend"><img src="assets/clubhouse/stadium.webp" alt="" loading="lazy"><span><small>Watch &amp; attend</small><b>Build an outing</b><i>Explore games around your group, distance and budget.</i></span></button>
+  <button class="exp-card" data-tool="gaming"><img src="assets/clubhouse/gaming.webp" alt="" loading="lazy"><span><small>Gaming &amp; esports</small><b>Start a game night</b><i>Pick a game, set a weekly time and invite your group.</i></span></button>
+  <button class="exp-card" data-tool="gear"><img src="assets/clubhouse/collecting.webp" alt="" loading="lazy"><span><small>Gear &amp; collectibles</small><b>Build your collection</b><i>Track equipment and keep the story behind your memorabilia.</i></span></button>
+  <button class="exp-card" data-tool="betting"><img src="assets/clubhouse/baseball.webp" alt="" loading="lazy"><span><small>Betting education · 21+</small><b>Call the outcome</b><i>Test how a hypothetical wager settles when the game changes.</i></span></button>
 </div></section>
+<section class="planner-band"><div><h2>MY SPORTS WEEK</h2><p>Keep games, practices and outings on one calendar. See where the next one fits.</p><button class="line-action" data-open="event">Add a plan</button></div><aside class="week-card"><div class="week-top"><span class="eyebrow">My calendar</span><span class="calendar-icon" aria-hidden="true">▦</span></div><h2>THIS WEEK</h2><p class="week-range" id="home-range"></p><div class="days" id="home-days" aria-label="Select a day"></div><div id="home-agenda"></div><div class="week-links"><button class="text-action" data-open="week">Open my week</button><button class="text-action" data-open="windows">Find a free window</button></div></aside></section>
 <section class="local-section"><div class="section-head"><div><p class="eyebrow dark">City edition</p><h2>ON THE JERSEY SHORE</h2></div><button class="line-action" id="open-local">See local resources</button></div><div id="local-picks" class="local-picks"></div></section>
 <div class="partner"><div><p class="eyebrow">Clubs &amp; local businesses</p><h2>Bring your organization to the guide.</h2></div><a class="light-button" href="mailto:hello@elitemediagroup.io?subject=GameDay%20local%20listing%20or%20partnership">Contact GameDay</a></div>
-</main><footer class="wrap"><span>GameDay In My City · Elite Media Group</span><div><a href="explore.html#coach">Ask Coach</a><a href="explore.html#gaming">Gaming</a><a href="explore.html#shop">Gear</a><a href="explore.html#live">GameDay Live</a><button data-open="credits">Photo credits</button></div></footer>
+</main><footer class="wrap"><span>GameDay In My City · Elite Media Group</span><div><a href="explore.html#coach">Ask Coach</a><a href="explore.html#hub">All sports</a><a href="explore.html#gaming">Gaming guides</a><a href="explore.html#shop">Gear guides</a><a href="explore.html#live">GameDay Live</a><button data-open="credits">Photo credits</button></div></footer>
 <dialog id="panel" aria-labelledby="panel-title"><div class="panel-head"><div><span class="eyebrow dark">GameDay In My City</span><h2 id="panel-title"></h2></div><button class="close" id="close-panel" aria-label="Close dialog">×</button></div><div id="panel-body"></div></dialog>
 <div id="notice" role="status" aria-live="polite"></div>
 </body></html>
